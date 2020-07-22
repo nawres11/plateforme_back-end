@@ -9,7 +9,6 @@ import javax.persistence.*;
 
 @Entity
 public class Flux {
-
 	
 	 @Id
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +19,12 @@ public class Flux {
 	  @NotNull
 	  private String type_flux;
 	  @NotNull
+	  private String cadre;
+	  @NotNull
+	  private String statut;
+	  @NotNull
+	  private String dateOuverture ;
+	  @NotNull
 	  private int port;
 	  @NotNull
 	  private String adresse_source;
@@ -28,32 +33,42 @@ public class Flux {
 	  @NotNull
 	  private int duree;
 	  @NotNull
-	  private int dateOuverture;
-	  @NotNull
 	  private String natureEchange;
+	  
+	  
 	  @ManyToOne(fetch = FetchType.EAGER, optional = false)
 	  @OnDelete(action = OnDeleteAction.CASCADE)
 	  @JoinColumn(name = "id_serveur", nullable = false)
 	  private Serveur server;
 	  
+	  @ManyToOne(fetch = FetchType.EAGER, optional = false)
+	  @OnDelete(action = OnDeleteAction.CASCADE)
+	  @JoinColumn(name = " id_projet", nullable = false)
+	  private Projet projet;
 	  
 	  
 	public Flux() {}	
 	
-	
-
-	public Flux(int id_flux, String type_flux, int port, String adresse_source, String adresse_destinataire, int duree,
-			int dateOuverture, String natureEchange) {
+	public Flux(int id_flux, String type_flux, String cadre, String statut, String dateOuverture, int port,
+			String adresse_source, String adresse_destinataire, int duree, String natureEchange, Serveur server,Projet projet) {
+		
 		super();
 		this.id_flux = id_flux;
 		this.type_flux = type_flux;
+		this.cadre = cadre;
+		this.statut = statut;
+		this.dateOuverture = dateOuverture;
 		this.port = port;
 		this.adresse_source = adresse_source;
 		this.adresse_destinataire = adresse_destinataire;
 		this.duree = duree;
-		this.dateOuverture = dateOuverture;
 		this.natureEchange = natureEchange;
+		this.server = server;
+		this.projet=projet;
 	}
+
+
+
 
 
 	public int getId_flux() {
@@ -93,13 +108,37 @@ public class Flux {
 	public void setDuree(int duree) {
 		this.duree = duree;
 	}
-	public int getDateOuverture() {
+	
+
+	public String getCadre() {
+		return cadre;
+	}
+
+	public void setCadre(String cadre) {
+		this.cadre = cadre;
+	}
+
+
+
+	public String getStatut() {
+		return statut;
+	}
+
+
+
+	public void setStatut(String statut) {
+		this.statut = statut;
+	}
+
+
+
+	public String getDateOuverture() {
 		return dateOuverture;
 	}
 
 
 
-	public void setDateOuverture(int dateOuverture) {
+	public void setDateOuverture(String dateOuverture) {
 		this.dateOuverture = dateOuverture;
 	}
 
@@ -110,6 +149,18 @@ public class Flux {
 	}
 	public void setNatureEchange(String natureEchange) {
 		this.natureEchange = natureEchange;
+	}
+
+
+
+	public Projet getProjet() {
+		return projet;
+	}
+
+
+
+	public void setProjet(Projet projet) {
+		this.projet = projet;
 	}
 
 

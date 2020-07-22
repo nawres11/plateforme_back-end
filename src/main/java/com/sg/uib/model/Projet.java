@@ -16,41 +16,49 @@ public class Projet {
 	 @Column(unique = true)
 	 private int id_projet;
 	 @Column(nullable = false)
-     private int num_projet;
+     private String intitule_projet;
 	 @Column(nullable = false)
      private String dateCreation;
 	 @Column(nullable = false)
      private String type_projet;
 	
 	 @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	 @JoinColumn(name = "id_projet")
+	 @JoinColumn(name = "id_flux")
 	 @OnDelete(action = OnDeleteAction.CASCADE)
-	 @JsonIgnoreProperties(value = {"projet"}, allowSetters = true)
+	 @JsonIgnoreProperties(value = {"flux"}, allowSetters = true)
 	 private List<Flux> flux ;
 	 
-	 
-	 
-	 
+	  @ManyToOne(fetch = FetchType.EAGER, optional = false)
+	  @OnDelete(action = OnDeleteAction.CASCADE)
+	  @JoinColumn(name = "id_serveur", nullable = false)
+	  private Serveur server;
 
-	public Projet() {
+	
+	 public Projet() {
 		super();
 	}
 	
-
-	public Projet(int num_projet, String dateCreation, String type_projet) {
+	public Projet(String intitule_projet, String dateCreation, String type_projet, List<Flux> flux) {
 		super();
-		this.num_projet = num_projet;
+		this.intitule_projet = intitule_projet;
+		this.dateCreation = dateCreation;
+		this.type_projet = type_projet;
+		this.flux = flux;
+	}
+
+	public Projet(String intitule_projet, String dateCreation, String type_projet) {
+		super();
+		this.intitule_projet = intitule_projet;
 		this.dateCreation = dateCreation;
 		this.type_projet = type_projet;
 	}
 
+	public String getIntitule_projet() {
+		return intitule_projet;
+	}
 
-	public Projet(int num_projet, String dateCreation, String type_projet, List<Flux> flux) {
-		super();
-		this.num_projet = num_projet;
-		this.dateCreation = dateCreation;
-		this.type_projet = type_projet;
-		this.flux = flux;
+	public void setIntitule_projet(String intitule_projet) {
+		this.intitule_projet = intitule_projet;
 	}
 
 	public int getId_projet() {
@@ -59,14 +67,6 @@ public class Projet {
 
 	public void setId_projet(int id_projet) {
 		this.id_projet = id_projet;
-	}
-
-	public int getNum_projet() {
-		return num_projet;
-	}
-
-	public void setNum_projet(int num_projet) {
-		this.num_projet = num_projet;
 	}
 
 	public String getDateCreation() {

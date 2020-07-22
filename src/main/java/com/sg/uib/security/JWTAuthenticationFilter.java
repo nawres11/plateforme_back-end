@@ -32,6 +32,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
         try {
+        	/*we should add class Admin because it just read the role user and not admin */
+        	
             User user = new ObjectMapper().readValue(request.getInputStream(),User.class) ;
             System.out.println("authentification");
             return  authenticationManager.authenticate( new UsernamePasswordAuthenticationToken(user.getEmail(),user.getPassword()));

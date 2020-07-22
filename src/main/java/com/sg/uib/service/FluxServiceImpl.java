@@ -26,9 +26,8 @@ public class FluxServiceImpl  implements FluxService{
     }
 
     @Override
-    public Flux addFlux(Flux flux, Long id_serveur) {
-        Serveur server = serverRepository.findById(id_serveur).get();
-        flux.setServer(server);
+    public Flux addFlux(Flux flux) {
+        
         return fluxRepository.saveAndFlush(flux);
     }
 

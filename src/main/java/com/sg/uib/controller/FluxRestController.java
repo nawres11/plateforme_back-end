@@ -24,9 +24,9 @@ public class FluxRestController {
         return fluxService.getFluxById(id_flux);
     }
     
-    @PostMapping("/fluxs/{id_serveur}")
-    public Flux addFlux(@RequestBody Flux flux,@PathVariable("id_serveur") long id_serveur){
-        return fluxService.addFlux(flux, id_serveur);
+    @PostMapping("/fluxs")
+    public Flux addFlux(@RequestBody Flux flux){
+        return fluxService.addFlux(flux);
     }
    
     @GetMapping("/fluxs/serversList")

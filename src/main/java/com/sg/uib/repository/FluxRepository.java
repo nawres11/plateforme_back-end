@@ -7,7 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface FluxRepository extends JpaRepository<Flux, Long> {
-			@Query(value = "SELECT * FROM `flux` WHERE id_serveur= ?", nativeQuery = true)
+			
+			List<Flux> findAll();
 			List<Flux> findByServer(Long id_serveur);
 		}
 

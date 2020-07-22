@@ -4,7 +4,6 @@ package com.sg.uib.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -26,37 +25,38 @@ public class Serveur {
      @Column(nullable = false)
      private String type;
      @Column(nullable = false)
-     private String projet;
-     @Column(nullable = false)
      private String statut;
 
      @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-     @JoinColumn(name = "id_serveur")
+     @JoinColumn(name = "id_flux")
      @OnDelete(action = OnDeleteAction.CASCADE)
-     @JsonIgnoreProperties(value = {"server"}, allowSetters = true)
+     @JsonIgnoreProperties(value = {"flux"}, allowSetters = true)
      private List<Flux> flux ;
-
-
-
-
+     
+     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+     @JoinColumn(name = "id_projet")
+     @OnDelete(action = OnDeleteAction.CASCADE)
+     @JsonIgnoreProperties(value = {"projet"}, allowSetters = true)
+     private List<Projet> projet ;
+     
+    
      public Serveur() {
         super();
     }
 
-    public Serveur(String intitule, int port, String url, String type, String projet,
-            String statut) {
-        super();
-        this.intitule = intitule;
-        this.port = port;
-        this.url = url;
-        this.type = type;
-        this.projet = projet;
-        this.statut = statut;
-    }
+	public Serveur(Long id_serveur, String intitule, int port, String url, String type, String statut,
+			List<Projet> projet) {
+		super();
+		this.id_serveur = id_serveur;
+		this.intitule = intitule;
+		this.port = port;
+		this.url = url;
+		this.type = type;
+		this.statut = statut;
+		this.projet = projet;
+	}
 
-
-
-    public Long getId_serveur() {
+	public Long getId_serveur() {
         return id_serveur;
     }
 
@@ -96,14 +96,6 @@ public class Serveur {
         this.type = type;
     }
 
-    public String getProjet() {
-        return projet;
-    }
-
-    public void setProjet(String projet) {
-        this.projet = projet;
-    }
-
     public String getStatut() {
         return statut;
     }
@@ -111,8 +103,17 @@ public class Serveur {
     public void setStatut(String statut) {
         this.statut = statut;
     }
+    
 
-    public List<Flux> getFlux() {
+	public List<Projet> getProjet() {
+		return projet;
+	}
+
+	public void setProjet(List<Projet> projet) {
+		this.projet = projet;
+	}
+
+	public List<Flux> getFlux() {
         return flux;
     }
 
