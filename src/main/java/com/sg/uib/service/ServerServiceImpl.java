@@ -23,6 +23,13 @@ public class ServerServiceImpl implements ServerService{
 	    @Override
 	    public void updateServer(Serveur serverDetails, Long id) {
 	        Serveur server = serverRepository.findById(id).get();
+			System.out.println("====================");
+			System.out.println(serverDetails.getId_serveur());
+			System.out.println(serverDetails.getIntitule());
+			System.out.println(serverDetails.getPort());
+			System.out.println(serverDetails.getProjet().size());
+			System.out.println("====================");
+			// ------------------------------------------
 	        server.setId_serveur(serverDetails.getId_serveur());
 	        server.setIntitule(serverDetails.getIntitule());
 	        server.setPort(serverDetails.getPort());
@@ -30,7 +37,8 @@ public class ServerServiceImpl implements ServerService{
 	        server.setStatut(serverDetails.getStatut());
 	        server.setType(serverDetails.getType());
 	        server.setUrl(serverDetails.getUrl());
-	        serverRepository.saveAndFlush(server);
+
+	        serverRepository.save(server);
 	    }
 
 	    @Override

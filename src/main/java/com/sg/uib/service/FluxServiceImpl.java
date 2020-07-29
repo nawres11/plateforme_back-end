@@ -28,7 +28,7 @@ public class FluxServiceImpl  implements FluxService{
     @Override
     public Flux addFlux(Flux flux) {
         
-        return fluxRepository.saveAndFlush(flux);
+        return fluxRepository.save(flux);
     }
 
     @Override

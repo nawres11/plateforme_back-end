@@ -7,8 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface FluxRepository extends JpaRepository<Flux, Long> {
-			
-			List<Flux> findAll();
-			List<Flux> findByServer(Long id_serveur);
-		}
+
+    List<Flux> findAll();
+
+    List<Flux> findByServer(Long id_serveur);
+}
 

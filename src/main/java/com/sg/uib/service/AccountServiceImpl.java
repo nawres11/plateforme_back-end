@@ -11,37 +11,41 @@ import javax.transaction.Transactional;
 @Service
 @Transactional
 public class AccountServiceImpl implements AccountService {
-@Autowired
-    private UserRepository userRepository ;
-@Autowired
-    private RoleRepository roleRepository ;
-@Autowired
-private BCryptPasswordEncoder bCryptPasswordEncoder ;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private RoleRepository roleRepository;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public User saveUser(User user) {
+    public User saveAppUser(User user, String rolename) {
         User us = userRepository.findUsersByEmail(user.getEmail());
-        System.out.println("lowwweeellll");
-       if(us!=null) throw new RuntimeException("User already exist");
-        System.out.println("theeeniiiii");
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        System.out.println("theeeleethhhh");
-        userRepository.save(user);
-        System.out.println("eeraaabaaaaaa");
-        addRoleToUser(user.getEmail(),"USER");
-        return user ;
 
+        if (us != null) throw new RuntimeException("User already exist");
+
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+        addRoleToUser(user.getEmail(), rolename);
+
+        return user;
+    }
+
+    public User saveUser(User user) {
+        return this.saveAppUser(user, "USER");
+    }
+
+    public User saveAdmin(User user) {
+        return this.saveAppUser(user, "ADMIN");
     }
 
     @Override
     public Role saveRole(Role role) {
-
         return roleRepository.save(role);
     }
 
     @Override
     public User loadUserByEmail(String email) {
-
         return userRepository.findUsersByEmail(email);
     }
 
@@ -50,6 +54,5 @@ private BCryptPasswordEncoder bCryptPasswordEncoder ;
         User user = userRepository.findUsersByEmail(email);
         Role role = roleRepository.findByRoleName(roleName);
         user.getRoles().add(role);
-
     }
 }
