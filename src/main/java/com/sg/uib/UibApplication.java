@@ -21,9 +21,9 @@ public class UibApplication {
         SpringApplication.run(UibApplication.class, args);
     }
 
-    @Bean
-    CommandLineRunner start(AccountService accountService, FluxRepository fluxRepository) {
-        return args -> {
+//    @Bean
+//    CommandLineRunner start(AccountService accountService, FluxRepository fluxRepository) {
+//        return args -> {
 //			accountService.saveRole(new Role("USER"));
 //			accountService.saveRole(new Role("ADMIN"));
 //			Stream.of(
@@ -33,8 +33,8 @@ public class UibApplication {
 //			).forEach(user -> {
 //				accountService.saveAppUser(user, "USER");
 //			});
-        };
-    }
+//        };
+//    }
 
     @Bean
     BCryptPasswordEncoder getBCPE() {

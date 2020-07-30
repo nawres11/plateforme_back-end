@@ -15,10 +15,12 @@ public class FluxRestController {
 	
 	@Autowired
     private FluxService fluxService;
-    @GetMapping("/fluxs")
+
+	@GetMapping("/fluxs")
     public List<Flux> getAllFluxs(){
         return fluxService.getAllFluxs();
     }
+
     @GetMapping("/fluxs/{id}")
     public Flux getFluxById(@PathVariable("id")long id_flux){
         return fluxService.getFluxById(id_flux);
@@ -33,6 +35,7 @@ public class FluxRestController {
     public List<Serveur> getAllServers(){
         return fluxService.getAllServers();
     }
+
     @GetMapping("/fluxs/fluxsByServers/{id_serveur}")
     public List<Flux> getFluxByServer(@PathVariable("id_serveur") long id_serveur){
         return fluxService.findByServer(id_serveur);

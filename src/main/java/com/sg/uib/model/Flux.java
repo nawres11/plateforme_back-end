@@ -1,5 +1,6 @@
 package com.sg.uib.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -36,11 +37,13 @@ public class Flux {
     @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "id_serveur")
+    @JsonIgnore
     private Serveur server;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = " id_projet")
+    @JsonIgnore
     private Projet projet;
 
 
