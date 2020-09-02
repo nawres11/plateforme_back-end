@@ -11,5 +11,7 @@ public interface FluxRepository extends JpaRepository<Flux, Long> {
     List<Flux> findAll();
 
     List<Flux> findByServer(Long id_serveur);
+
+    long count();
 }
 

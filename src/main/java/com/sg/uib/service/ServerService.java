@@ -5,10 +5,15 @@ import com.sg.uib.model.Serveur;
 import java.util.List;
 
 public interface ServerService {
-	
-	 public List<Serveur> getAllServers();
-	    public void updateServer(Serveur server, Long id);
-	    public Serveur addServer(Serveur server);
-	    public Serveur getServerById(Long id);
+
+    long count();
+
+    List<Serveur> getAllServers();
+
+    void updateServer(Serveur server, Long id);
+
+    Serveur addServer(Serveur server);
+
+    Serveur getServerById(Long id);
 
 }

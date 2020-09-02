@@ -15,23 +15,28 @@ import com.sg.uib.model.Projet;
 import com.sg.uib.service.ProjectService;
 
 
-	@RestController
-	@CrossOrigin
-	@RequestMapping("/rest")
-	public class ProjetRestController {
-		
-		 @Autowired
-		    private ProjectService projectService;
+@RestController
+@CrossOrigin
+@RequestMapping("/rest")
+public class ProjetRestController {
 
-		    @GetMapping("/projects")
-		    public List<Projet> getAllProjects() {
-		    	return projectService.getAllProjects();
-		    			}
+    @Autowired
+    private ProjectService projectService;
 
-		    @GetMapping("/projects/{id}")
-		    public Projet getProjectById(@PathVariable("id") long id) {
-		        return projectService.getProjectById(id);
-		    }
+	@GetMapping("/projects/count")
+	public long countProjects() {
+		return projectService.count();
+	}
 
-		    
+    @GetMapping("/projects")
+    public List<Projet> getAllProjects() {
+        return projectService.getAllProjects();
+    }
+
+    @GetMapping("/projects/{id}")
+    public Projet getProjectById(@PathVariable("id") long id) {
+        return projectService.getProjectById(id);
+    }
+
+
 }

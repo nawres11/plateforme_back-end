@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class FluxServiceImpl  implements FluxService{
+public class FluxServiceImpl implements FluxService {
 
 
     @Autowired
@@ -21,13 +21,18 @@ public class FluxServiceImpl  implements FluxService{
     private ServerRepository serverRepository;
 
     @Override
+    public long count() {
+        return this.fluxRepository.count();
+    }
+
+    @Override
     public List<Flux> getAllFluxs() {
         return fluxRepository.findAll();
     }
 
     @Override
     public Flux addFlux(Flux flux) {
-        
+
         return fluxRepository.save(flux);
     }
 
@@ -41,9 +46,9 @@ public class FluxServiceImpl  implements FluxService{
         return fluxRepository.findById(id).get();
     }
 
-	@Override
-	public List<Flux> findByServer(Long id_serveur) {
-		
-		return fluxRepository.findByServer(id_serveur);
-	}
+    @Override
+    public List<Flux> findByServer(Long id_serveur) {
+
+        return fluxRepository.findByServer(id_serveur);
+    }
 }

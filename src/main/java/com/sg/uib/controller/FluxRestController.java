@@ -15,8 +15,14 @@ public class FluxRestController {
 	
 	@Autowired
     private FluxService fluxService;
+    @Autowired
 
-	@GetMapping("/fluxs")
+	@GetMapping("/fluxs/count")
+    public long countFluxs(){
+        return fluxService.count();
+    }
+
+    @GetMapping("/fluxs")
     public List<Flux> getAllFluxs(){
         return fluxService.getAllFluxs();
     }

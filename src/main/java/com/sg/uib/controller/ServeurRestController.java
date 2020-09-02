@@ -12,27 +12,34 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/rest")
 public class ServeurRestController {
-	
-	 @Autowired
-	    private ServerService serverService;
 
-	    @GetMapping("/servers")
-	    public List<Serveur> getAllServers() {return serverService.getAllServers();}
+    @Autowired
+    private ServerService serverService;
 
-	    @GetMapping("/servers/{id}")
-	    public Serveur getServerById(@PathVariable("id") long id) {
-	        return serverService.getServerById(id);
-	    }
+    @GetMapping("/servers/count")
+    public long countServers() {
+        return serverService.count();
+    }
 
-	    @PostMapping("/servers")
-	    public Serveur addServer(@RequestBody Serveur server) {
-	        return serverService.addServer(server);
-	    }
+    @GetMapping("/servers")
+    public List<Serveur> getAllServers() {
+        return serverService.getAllServers();
+    }
 
-	    @PutMapping("/servers/{id}")
-	    public void updateServer(@Valid @RequestBody Serveur server, @PathVariable("id") long id) {
-	    	serverService.updateServer(server, id);
-	    }
-	    
+    @GetMapping("/servers/{id}")
+    public Serveur getServerById(@PathVariable("id") long id) {
+        return serverService.getServerById(id);
+    }
+
+    @PostMapping("/servers")
+    public Serveur addServer(@RequestBody Serveur server) {
+        return serverService.addServer(server);
+    }
+
+    @PutMapping("/servers/{id}")
+    public void updateServer(@Valid @RequestBody Serveur server, @PathVariable("id") long id) {
+        serverService.updateServer(server, id);
+    }
+
 
 }
