@@ -1,6 +1,7 @@
 package com.sg.uib.service;
 
 
+import com.sg.uib.dto.FluxCreationFormDto;
 import com.sg.uib.model.*;
 import com.sg.uib.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ public class FluxServiceImpl implements FluxService {
     private FluxRepository fluxRepository;
     @Autowired
     private ServerRepository serverRepository;
+    @Autowired
+    private ProjectRepository projectRepository;
 
     @Override
     public long count() {
@@ -31,9 +34,27 @@ public class FluxServiceImpl implements FluxService {
     }
 
     @Override
-    public Flux addFlux(Flux flux) {
+    public Flux addFlux(FluxCreationFormDto flux) {
+        Flux newFlux = new Flux();
 
-        return fluxRepository.save(flux);
+        newFlux.setAdresse_source(flux.getAdresse_source());
+        newFlux.setAdresse_destinataire(flux.getAdresse_destinataire());
+        newFlux.setPort(flux.getPort());
+        newFlux.setCadre(flux.getCadre());
+        newFlux.setDateOuverture(flux.getDateOuverture());
+
+        if (flux.getId_serveur() != null) {
+            Serveur newServer = serverRepository.getOne(flux.getId_serveur());
+            newFlux.setServer(newServer);
+        }
+
+        if (flux.getId_projet() != null) {
+            newFlux.setProjet(
+                    projectRepository.getOne(flux.getId_projet())
+            );
+        }
+
+        return fluxRepository.save(newFlux);
     }
 
     @Override

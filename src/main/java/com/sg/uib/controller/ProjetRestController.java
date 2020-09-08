@@ -16,17 +16,17 @@ import com.sg.uib.service.ProjectService;
 
 
 @RestController
-@CrossOrigin
+@CrossOrigin("*")
 @RequestMapping("/rest")
 public class ProjetRestController {
 
     @Autowired
     private ProjectService projectService;
 
-	@GetMapping("/projects/count")
-	public long countProjects() {
-		return projectService.count();
-	}
+    @GetMapping("/projects/count")
+    public long countProjects() {
+        return projectService.count();
+    }
 
     @GetMapping("/projects")
     public List<Projet> getAllProjects() {
@@ -34,7 +34,7 @@ public class ProjetRestController {
     }
 
     @GetMapping("/projects/{id}")
-    public Projet getProjectById(@PathVariable("id") long id) {
+    public Projet getProjectById(@PathVariable("id") Long id) {
         return projectService.getProjectById(id);
     }
 

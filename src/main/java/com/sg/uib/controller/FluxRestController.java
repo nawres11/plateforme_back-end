@@ -1,5 +1,6 @@
 package com.sg.uib.controller;
 
+import com.sg.uib.dto.FluxCreationFormDto;
 import com.sg.uib.model.*;
 import com.sg.uib.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class FluxRestController {
     @Autowired
 
 	@GetMapping("/fluxs/count")
-    public long countFluxs(){
+    public Long countFluxs(){
         return fluxService.count();
     }
 
@@ -33,7 +34,8 @@ public class FluxRestController {
     }
     
     @PostMapping("/fluxs")
-    public Flux addFlux(@RequestBody Flux flux){
+    public Flux addFlux(@RequestBody FluxCreationFormDto flux){
+        System.out.println(flux.toString());
         return fluxService.addFlux(flux);
     }
    

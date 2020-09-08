@@ -18,12 +18,12 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     private ProjectRepository projetRepository;
 
-	@Override
-	public long count() {
-		return this.projetRepository.count();
-	}
+    @Override
+    public long count() {
+        return this.projetRepository.count();
+    }
 
-	@Override
+    @Override
     public List<Projet> getAllProjects() {
 
         return projetRepository.findAll();
@@ -33,6 +33,4 @@ public class ProjectServiceImpl implements ProjectService {
     public Projet getProjectById(Long id) {
         return projetRepository.findById(id).get();
     }
-
-
 }

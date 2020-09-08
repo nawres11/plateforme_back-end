@@ -13,7 +13,7 @@ public class Flux {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_flux;
+    private Long id_flux;
     @NotNull
     private String type_flux;
     @NotNull
@@ -40,9 +40,9 @@ public class Flux {
     @JsonIgnore
     private Serveur server;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = " id_projet")
+    @JoinColumn(name = "id_projet")
     @JsonIgnore
     private Projet projet;
 
@@ -50,7 +50,7 @@ public class Flux {
     public Flux() {
     }
 
-    public Flux(int id_flux, String type_flux, String cadre, String statut, String dateOuverture, int port,
+    public Flux(Long id_flux, String type_flux, String cadre, String statut, String dateOuverture, int port,
                 String adresse_source, String adresse_destinataire, int duree, String natureEchange, Serveur server, Projet projet) {
 
         super();
@@ -69,11 +69,11 @@ public class Flux {
     }
 
 
-    public int getId_flux() {
+    public Long getId_flux() {
         return id_flux;
     }
 
-    public void setId_flux(int id_flux) {
+    public void setId_flux(Long id_flux) {
         this.id_flux = id_flux;
     }
 

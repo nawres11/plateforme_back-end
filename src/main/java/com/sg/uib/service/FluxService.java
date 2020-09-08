@@ -1,5 +1,6 @@
 package com.sg.uib.service;
 
+import com.sg.uib.dto.FluxCreationFormDto;
 import com.sg.uib.model.*;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public interface FluxService {
 
     public List<Flux> getAllFluxs();
 
-    public Flux addFlux(Flux flux);
+    public Flux addFlux(FluxCreationFormDto flux);
 
     public Flux getFluxById(Long id);
 

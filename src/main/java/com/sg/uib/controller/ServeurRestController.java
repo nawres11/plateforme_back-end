@@ -27,7 +27,7 @@ public class ServeurRestController {
     }
 
     @GetMapping("/servers/{id}")
-    public Serveur getServerById(@PathVariable("id") long id) {
+    public Serveur getServerById(@PathVariable("id") Long id) {
         return serverService.getServerById(id);
     }
 
