@@ -32,6 +32,7 @@ public class Flux {
     private int duree;
     @NotNull
     private String natureEchange;
+    private Boolean isValidated;
 
 
     @ManyToOne(fetch = FetchType.EAGER)

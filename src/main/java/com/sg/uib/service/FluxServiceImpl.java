@@ -42,6 +42,9 @@ public class FluxServiceImpl implements FluxService {
         newFlux.setPort(flux.getPort());
         newFlux.setCadre(flux.getCadre());
         newFlux.setDateOuverture(flux.getDateOuverture());
+        newFlux.setType_flux(flux.getType_flux());
+        newFlux.setNatureEchange(flux.getNatureEchange());
+        newFlux.setStatut(flux.getStatut());
 
         if (flux.getId_serveur() != null) {
             Serveur newServer = serverRepository.getOne(flux.getId_serveur());
