@@ -1,9 +1,11 @@
 package com.sg.uib.controller;
 
+import com.sg.uib.dto.ServerCreationFormDto;
 import com.sg.uib.model.*;
 import com.sg.uib.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -27,12 +29,12 @@ public class ServeurRestController {
     }
 
     @GetMapping("/servers/{id}")
-    public Serveur getServerById(@PathVariable("id") Long id) {
+    public Serveur getServerById(@PathVariable("id") Long id) throws ResponseStatusException  {
         return serverService.getServerById(id);
     }
 
     @PostMapping("/servers")
-    public Serveur addServer(@RequestBody Serveur server) {
+    public Serveur addServer(@RequestBody ServerCreationFormDto server) {
         return serverService.addServer(server);
     }
 

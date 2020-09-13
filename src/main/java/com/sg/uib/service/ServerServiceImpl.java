@@ -1,10 +1,14 @@
 package com.sg.uib.service;
 
+import com.sg.uib.dto.ServerCreationFormDto;
 import com.sg.uib.model.*;
 import com.sg.uib.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -14,6 +18,9 @@ public class ServerServiceImpl implements ServerService {
 
     @Autowired
     private ServerRepository serverRepository;
+
+    @Autowired
+    private ProjectRepository projectRepository;
 
     @Override
     public long count() {
@@ -33,13 +40,11 @@ public class ServerServiceImpl implements ServerService {
         System.out.println(serverDetails.getId_serveur());
         System.out.println(serverDetails.getIntitule());
         System.out.println(serverDetails.getPort());
-        System.out.println(serverDetails.getProjet().size());
         System.out.println("====================");
         // ------------------------------------------
         server.setId_serveur(serverDetails.getId_serveur());
         server.setIntitule(serverDetails.getIntitule());
         server.setPort(serverDetails.getPort());
-        server.setProjet(serverDetails.getProjet());
         server.setStatut(serverDetails.getStatut());
         server.setType(serverDetails.getType());
         server.setUrl(serverDetails.getUrl());
@@ -48,13 +53,24 @@ public class ServerServiceImpl implements ServerService {
     }
 
     @Override
-    public Serveur addServer(Serveur server) {
-        return serverRepository.saveAndFlush(server);
+    public Serveur addServer(ServerCreationFormDto server) {
+        Serveur newServeur = new Serveur();
+
+        newServeur.setIntitule(server.getIntitule());
+        newServeur.setPort(server.getPort());
+        newServeur.setUrl(server.getUrl());
+        newServeur.setType(server.getType());
+        newServeur.setStatut(server.getStatut());
+
+        return serverRepository.save(newServeur);
     }
 
     @Override
-    public Serveur getServerById(Long id) {
-        return serverRepository.findById(id).get();
+    public Serveur getServerById(Long id) throws ResponseStatusException {
+        return serverRepository.findById(id).orElseThrow(() ->
+            new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "entity not found"
+            )
+        );
     }
-
 }

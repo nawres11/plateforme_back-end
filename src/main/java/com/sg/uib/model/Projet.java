@@ -12,7 +12,6 @@ public class Projet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Column(unique = true)
     private Long id_projet;
     @Column(nullable = false)
@@ -22,15 +21,8 @@ public class Projet {
     @Column(nullable = false)
     private String type_projet;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_flux")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnoreProperties(value = {"flux"}, allowSetters = true)
-    private List<Flux> flux;
-
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "id_serveur", nullable = false)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "id_serveur")
     private Serveur server;
 
 
@@ -43,7 +35,6 @@ public class Projet {
         this.intitule_projet = intitule_projet;
         this.dateCreation = dateCreation;
         this.type_projet = type_projet;
-        this.flux = flux;
     }
 
     public Projet(String intitule_projet, String dateCreation, String type_projet) {
@@ -84,14 +75,5 @@ public class Projet {
     public void setType_projet(String type_projet) {
         this.type_projet = type_projet;
     }
-
-    public List<Flux> getFlux() {
-        return flux;
-    }
-
-    public void setFlux(List<Flux> flux) {
-        this.flux = flux;
-    }
-
 
 }

@@ -1,11 +1,5 @@
 package com.sg.uib.model;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -29,21 +23,6 @@ public class Serveur {
     @Column(nullable = false)
     private String statut;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_flux")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-//     @JsonIgnoreProperties(value = {"flux"}, allowSetters = true)
-    private List<Flux> flux;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_projet")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-//     @JsonIgnoreProperties(value = {"projet"}, allowSetters = true)
-    private List<Projet> projet;
-
-
     public Serveur() {
         super();
     }
@@ -57,7 +36,6 @@ public class Serveur {
         this.url = url;
         this.type = type;
         this.statut = statut;
-        this.projet = projet;
     }
 
     public Long getId_serveur() {
@@ -107,24 +85,6 @@ public class Serveur {
     public void setStatut(String statut) {
         this.statut = statut;
     }
-
-
-    public List<Projet> getProjet() {
-        return projet;
-    }
-
-    public void setProjet(List<Projet> projet) {
-        this.projet = projet;
-    }
-
-    public List<Flux> getFlux() {
-        return flux;
-    }
-
-    public void setFlux(List<Flux> flux) {
-        this.flux = flux;
-    }
-
 
 }
 
