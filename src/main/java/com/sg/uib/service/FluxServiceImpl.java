@@ -5,8 +5,10 @@ import com.sg.uib.dto.FluxCreationFormDto;
 import com.sg.uib.model.*;
 import com.sg.uib.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -67,7 +69,11 @@ public class FluxServiceImpl implements FluxService {
 
     @Override
     public Flux getFluxById(Long id) {
-        return fluxRepository.findById(id).get();
+        return fluxRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "entity not found"
+                )
+        );
     }
 
     @Override

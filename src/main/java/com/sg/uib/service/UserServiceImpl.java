@@ -3,8 +3,10 @@ package com.sg.uib.service;
 import com.sg.uib.model.*;
 import com.sg.uib.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -21,7 +23,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(User userDetails, Long id) {
-        User user = userRepository.findById(id).get();
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "entity not found"
+                )
+        );
         user.setDateOfBirth(userDetails.getDateOfBirth());
         user.setEmail(userDetails.getEmail());
         user.setFirstName(userDetails.getFirstName());
@@ -47,7 +53,11 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public User getUserById(Long id) {
-        return userRepository.findById(id).get();
+        return userRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "entity not found"
+                )
+        );
     }
     public User getUserByEmail(String email) {
         return userRepository.findUsersByEmail(email);
