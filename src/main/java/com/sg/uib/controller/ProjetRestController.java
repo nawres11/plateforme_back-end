@@ -4,12 +4,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.sg.uib.dto.ProjectCreationFormDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.sg.uib.model.Projet;
 import com.sg.uib.service.ProjectService;
@@ -33,10 +30,23 @@ public class ProjetRestController {
         return projectService.getAllProjects();
     }
 
+    @PostMapping("/projects")
+    public Projet addProjects(@RequestBody ProjectCreationFormDto projet) {
+        return projectService.addProject(projet);
+    }
+
     @GetMapping("/projects/{id}")
     public Projet getProjectById(@PathVariable("id") Long id) {
         return projectService.getProjectById(id);
     }
 
+    @PutMapping("/projects/{id}")
+    public Projet updateProjectById(@PathVariable("id") Long id, @RequestBody ProjectCreationFormDto projet) {
+        return projectService.updateProject(id, projet);
+    }
 
+    @DeleteMapping("/projects/{id}")
+    public void deleteProjectById(@PathVariable("id") Long id) {
+        projectService.removeProject(id);
+    }
 }

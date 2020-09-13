@@ -21,7 +21,7 @@ public class Projet {
     @Column(nullable = false)
     private String type_projet;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_serveur")
     private Serveur server;
 
@@ -76,4 +76,11 @@ public class Projet {
         this.type_projet = type_projet;
     }
 
+    public Serveur getServer() {
+        return server;
+    }
+
+    public void setServer(Serveur server) {
+        this.server = server;
+    }
 }
