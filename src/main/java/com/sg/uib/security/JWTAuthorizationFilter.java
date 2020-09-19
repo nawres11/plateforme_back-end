@@ -42,7 +42,8 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
                 return;
             }
             JWTVerifier verifier = JWT.require(Algorithm.HMAC256(SecureParam.SECRET)).build();
-            DecodedJWT decodedJWT = verifier.verify(jwt.substring(SecureParam.HEADER_PREFIX.length()));
+            DecodedJWT decodedJWT = verifier
+                    .verify(jwt.replace(SecureParam.HEADER_PREFIX, ""));
 
             String email = decodedJWT.getSubject();
             List<String> roles = decodedJWT.getClaims().get("roles").asList(String.class);
@@ -51,7 +52,11 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
                 (authorities).add(new SimpleGrantedAuthority(r));
             });
 
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(email, null, authorities);
+            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                    email,
+                    null,
+                    authorities
+            );
 
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 
