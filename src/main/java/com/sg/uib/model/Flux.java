@@ -32,6 +32,7 @@ public class Flux {
     private int duree;
     @NotNull
     private String natureEchange;
+    @Column(columnDefinition = "bit default 0")
     private Boolean isValidated;
 
 
@@ -50,10 +51,7 @@ public class Flux {
     public Flux() {
     }
 
-    public Flux(Long id_flux, String type_flux, String cadre, String statut, String dateOuverture, int port,
-                String adresse_source, String adresse_destinataire, int duree, String natureEchange, Serveur server, Projet projet) {
-
-        super();
+    public Flux(Long id_flux, String type_flux, String cadre, String statut, String dateOuverture, int port, String adresse_source, String adresse_destinataire, int duree, String natureEchange, Boolean isValidated, Serveur server, Projet projet) {
         this.id_flux = id_flux;
         this.type_flux = type_flux;
         this.cadre = cadre;
@@ -64,10 +62,10 @@ public class Flux {
         this.adresse_destinataire = adresse_destinataire;
         this.duree = duree;
         this.natureEchange = natureEchange;
+        this.isValidated = isValidated;
         this.server = server;
         this.projet = projet;
     }
-
 
     public Long getId_flux() {
         return id_flux;
@@ -175,6 +173,12 @@ public class Flux {
         this.server = server;
     }
 
+    public Boolean getValidated() {
+        return isValidated;
+    }
 
+    public void setValidated(Boolean validated) {
+        isValidated = validated;
+    }
 }
 

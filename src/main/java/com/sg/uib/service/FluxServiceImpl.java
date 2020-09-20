@@ -47,6 +47,7 @@ public class FluxServiceImpl implements FluxService {
         newFlux.setType_flux(flux.getType_flux());
         newFlux.setNatureEchange(flux.getNatureEchange());
         newFlux.setStatut(flux.getStatut());
+        newFlux.setValidated(false);
 
         if (flux.getId_serveur() != null) {
             Serveur newServer = serverRepository.getOne(flux.getId_serveur());
@@ -80,5 +81,17 @@ public class FluxServiceImpl implements FluxService {
     public List<Flux> findByServer(Long id_serveur) {
 
         return fluxRepository.findByServer(id_serveur);
+    }
+
+    @Override
+    public Flux validateFluxById(Long id) {
+        Flux flux = fluxRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "entity not found"
+                )
+        );
+        flux.setValidated(true);
+
+        return fluxRepository.save(flux);
     }
 }

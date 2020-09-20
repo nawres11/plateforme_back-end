@@ -32,6 +32,11 @@ public class FluxRestController {
     public Flux getFluxById(@PathVariable("id")long id_flux){
         return fluxService.getFluxById(id_flux);
     }
+
+    @PatchMapping("/fluxs/{id}/validate")
+    public Flux validateFluxById(@PathVariable("id")long id_flux){
+        return fluxService.validateFluxById(id_flux);
+    }
     
     @PostMapping("/fluxs")
     public Flux addFlux(@RequestBody FluxCreationFormDto flux){

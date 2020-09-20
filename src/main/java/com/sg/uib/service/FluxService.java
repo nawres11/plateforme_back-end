@@ -18,6 +18,8 @@ public interface FluxService {
     public List<Serveur> getAllServers();
 
     public List<Flux> findByServer(Long id_serveur);
+
+    public Flux validateFluxById(Long id);
 }
 
 
